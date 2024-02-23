@@ -25,10 +25,12 @@ namespace Mango.Services.EmailAPI.Messaging
             _emailCartProcessor = client.CreateProcessor(emailShoppingCartQueue);
         }
 
-        public async Task Start()
+        public Task Start()
         {
             _emailCartProcessor.ProcessMessageAsync += OnEmailCartRequestReceived;
             _emailCartProcessor.ProcessErrorAsync += ErrorHandler;
+
+            return Task.CompletedTask;
         }
 
         public async Task Stop()
@@ -40,6 +42,7 @@ namespace Mango.Services.EmailAPI.Messaging
         private Task ErrorHandler(ProcessErrorEventArgs args)
         {
             Console.WriteLine(args.Exception.ToString());
+
             return Task.CompletedTask;
         }
 
