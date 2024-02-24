@@ -8,6 +8,8 @@ namespace Mango.Services.EmailAPI.Services
 {
     public class EmailService : IEmailService
     {
+        private const string _innerEmail = "testinner@email.com";
+
         private DbContextOptions<AppDbContext> _dbOptions;
 
         public EmailService(DbContextOptions<AppDbContext> dbOptions)
@@ -15,7 +17,7 @@ namespace Mango.Services.EmailAPI.Services
             _dbOptions = dbOptions;
         }
 
-        public async Task EmailCartAndLogAsync(CartDto cartDto)
+        public async Task EmailAndLogCartAsync(CartDto cartDto)
         {
             StringBuilder message = new StringBuilder();
 
@@ -32,6 +34,13 @@ namespace Mango.Services.EmailAPI.Services
             message.AppendLine("</ul>");
 
             await EmailAndLog(message.ToString(), cartDto.CartHeader.Email);
+        }
+
+        public async Task EmailAndLogRegisterUserAsync(string email)
+        {
+            string message = "User Registration Successful.<br/>Email: " + email;
+
+            await EmailAndLog(message, _innerEmail);
         }
 
         private async Task<bool> EmailAndLog(string message, string email)
