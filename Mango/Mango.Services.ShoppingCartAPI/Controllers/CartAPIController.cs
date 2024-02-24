@@ -19,7 +19,7 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
         private IProductService _productService;
         private ICouponService _couponService;
         private readonly IMessageBus _messageBus;
-        private IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
 
         public CartAPIController(
             AppDbContext db,
