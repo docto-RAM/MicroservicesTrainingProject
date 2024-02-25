@@ -22,6 +22,12 @@ namespace Mango.Web.Controllers
             return View(await LoadCartDtoBasedOnLoggedInUserAsync());
         }
 
+        [Authorize]
+        public async Task<IActionResult> Checkout()
+        {
+            return View(await LoadCartDtoBasedOnLoggedInUserAsync());
+        }
+
         public async Task<IActionResult> Remove(int cartDetailsId)
         {
             ResponseDto? response = await _cartService.RemoveFromCartAsync(cartDetailsId);
