@@ -2,14 +2,21 @@
 {
     public class SD
     {
-        public static string ProductAPIBase {  get; set; }
-        public static string CouponAPIBase {  get; set; }
-        public static string AuthAPIBase { get; set; }
-        public static string ShoppingCartAPIBase { get; set; }
-
-        public const string RoleAdmin = "ADMIN";
-        public const string RoleCustomer = "CUSTOMER";
         public const string TokenCookie = "JWTToken";
+
+        public class APIBase
+        {
+            public static string ProductAPI { get; set; }
+            public static string CouponAPI { get; set; }
+            public static string AuthAPI { get; set; }
+            public static string ShoppingCartAPI { get; set; }
+        }
+
+        public class Role
+        {
+            public const string Admin = "ADMIN";
+            public const string Customer = "CUSTOMER";
+        }
 
         public enum ApiType
         {
