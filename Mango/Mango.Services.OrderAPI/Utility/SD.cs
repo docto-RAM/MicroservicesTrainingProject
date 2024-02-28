@@ -17,5 +17,17 @@
             public const string Admin = "ADMIN";
             public const string Customer = "CUSTOMER";
         }
+
+        public class Currency
+        {
+            public const string USD = "usd";
+        }
+
+        public class CheckoutSessionMode
+        {
+            public const string Payment = "payment";
+            public const string Setup = "setup";
+            public const string Subscription = "subscription";
+        }
     }
 }
