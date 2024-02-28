@@ -53,6 +53,11 @@ namespace Mango.Web.Controllers
             return View();
         }
 
+        public IActionResult Confirmation(int orderId)
+        {
+            return View(orderId);
+        }
+
         public async Task<IActionResult> Remove(int cartDetailsId)
         {
             ResponseDto? response = await _cartService.RemoveFromCartAsync(cartDetailsId);
