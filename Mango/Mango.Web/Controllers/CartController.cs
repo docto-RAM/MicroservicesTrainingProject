@@ -48,6 +48,20 @@ namespace Mango.Web.Controllers
             if (response != null && response.IsSuccess)
             {
                 // TODO: get stripe session and redirect to stripe to place order
+
+                var domain = Request.Scheme + "://" + Request.Host.Value + "/";
+                StripeRequestDto stripeRequestDto = new()
+                {
+                    ApprovedUrl = domain + "cart/" + nameof(Confirmation) + "?orderId=" + orderHeaderDto.OrderHeaderId,
+                    CancelUrl = domain + "cart/" + nameof(Checkout),
+                    OrderHeader = orderHeaderDto
+                };
+
+                var stripeResponse = await _orderService.CreateStripeSessionAsync(stripeRequestDto);
+                StripeRequestDto stripeResponseResult = JsonConvert.DeserializeObject<StripeRequestDto>(Convert.ToString(stripeResponse.Result));
+                Response.Headers.Add("Location", stripeResponseResult.StripeSessionUrl);
+
+                return new StatusCodeResult(StatusCodes.Status303SeeOther);
             }
 
             return View();
