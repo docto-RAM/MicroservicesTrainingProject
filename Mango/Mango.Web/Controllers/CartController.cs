@@ -47,7 +47,7 @@ namespace Mango.Web.Controllers
 
             if (response != null && response.IsSuccess)
             {
-                // TODO: get stripe session and redirect to stripe to place order
+                // Get stripe session and redirect to stripe to place order
 
                 var domain = Request.Scheme + "://" + Request.Host.Value + "/";
                 StripeRequestDto stripeRequestDto = new()
