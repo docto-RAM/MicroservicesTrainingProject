@@ -6,7 +6,6 @@ using Mango.Services.OrderAPI.Service.IService;
 using Mango.Services.OrderAPI.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Stripe;
 using Stripe.Checkout;
 
 namespace Mango.Services.OrderAPI.Controllers
@@ -90,6 +89,19 @@ namespace Mango.Services.OrderAPI.Controllers
                     };
 
                     options.LineItems.Add(sessionLineItem);
+                }
+
+                if (stripeRequestDto.OrderHeader.Discount > 0)
+                {
+                    var discountsObj = new List<SessionDiscountOptions>()
+                    {
+                        new SessionDiscountOptions
+                        {
+                            Coupon = stripeRequestDto.OrderHeader.CouponCode
+                        }
+                    };
+
+                    options.Discounts = discountsObj;
                 }
 
                 var service = new SessionService();
