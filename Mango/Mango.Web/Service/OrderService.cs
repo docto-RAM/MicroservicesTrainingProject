@@ -17,9 +17,9 @@ namespace Mango.Web.Service
         {
             return await _baseService.SendAsync(new RequestDto()
             {
-                ApiType = SD.ApiType.POST,
+                ApiType = WebSD.ApiType.POST,
                 Data = cartDto,
-                Url = SD.APIBase.OrderAPI + "/api/order/CreateOrder"
+                Url = WebSD.APIBase.OrderAPI + "/api/order/CreateOrder"
             });
         }
 
@@ -27,9 +27,9 @@ namespace Mango.Web.Service
         {
             return await _baseService.SendAsync(new RequestDto()
             {
-                ApiType = SD.ApiType.POST,
+                ApiType = WebSD.ApiType.POST,
                 Data = stripeRequestDto,
-                Url = SD.APIBase.OrderAPI + "/api/order/CreateStripeSession"
+                Url = WebSD.APIBase.OrderAPI + "/api/order/CreateStripeSession"
             });
         }
     }

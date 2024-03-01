@@ -17,9 +17,9 @@ namespace Mango.Web.Service
         {
             return await _baseService.SendAsync(new RequestDto()
             {
-                ApiType = SD.ApiType.POST,
+                ApiType = WebSD.ApiType.POST,
                 Data = couponDto,
-                Url = SD.APIBase.CouponAPI + "/api/coupon/"
+                Url = WebSD.APIBase.CouponAPI + "/api/coupon/"
             });
         }
 
@@ -27,8 +27,8 @@ namespace Mango.Web.Service
         {
             return await _baseService.SendAsync(new RequestDto()
             {
-                ApiType = SD.ApiType.DELETE,
-                Url = SD.APIBase.CouponAPI + "/api/coupon/" + id
+                ApiType = WebSD.ApiType.DELETE,
+                Url = WebSD.APIBase.CouponAPI + "/api/coupon/" + id
             });
         }
 
@@ -36,8 +36,8 @@ namespace Mango.Web.Service
         {
             return await _baseService.SendAsync(new RequestDto()
             {
-                ApiType = SD.ApiType.GET,
-                Url = SD.APIBase.CouponAPI + "/api/coupon"
+                ApiType = WebSD.ApiType.GET,
+                Url = WebSD.APIBase.CouponAPI + "/api/coupon"
             });
         }
 
@@ -45,8 +45,8 @@ namespace Mango.Web.Service
         {
             return await _baseService.SendAsync(new RequestDto()
             {
-                ApiType = SD.ApiType.GET,
-                Url = SD.APIBase.CouponAPI + "/api/coupon/GetByCode/" + couponCode
+                ApiType = WebSD.ApiType.GET,
+                Url = WebSD.APIBase.CouponAPI + "/api/coupon/GetByCode/" + couponCode
             });
         }
 
@@ -54,8 +54,8 @@ namespace Mango.Web.Service
         {
             return await _baseService.SendAsync(new RequestDto()
             {
-                ApiType = SD.ApiType.GET,
-                Url = SD.APIBase.CouponAPI + "/api/coupon/" + id
+                ApiType = WebSD.ApiType.GET,
+                Url = WebSD.APIBase.CouponAPI + "/api/coupon/" + id
             });
         }
 
@@ -63,9 +63,9 @@ namespace Mango.Web.Service
         {
             return await _baseService.SendAsync(new RequestDto()
             {
-                ApiType = SD.ApiType.PUT,
+                ApiType = WebSD.ApiType.PUT,
                 Data = couponDto,
-                Url = SD.APIBase.CouponAPI + "/api/coupon/"
+                Url = WebSD.APIBase.CouponAPI + "/api/coupon/"
             });
         }
     }

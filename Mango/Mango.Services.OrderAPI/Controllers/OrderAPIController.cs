@@ -3,7 +3,7 @@ using Mango.Services.OrderAPI.Data;
 using Mango.Services.OrderAPI.Models;
 using Mango.Services.OrderAPI.Models.Dto;
 using Mango.Services.OrderAPI.Service.IService;
-using Mango.Services.OrderAPI.Utility;
+using Mango.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Stripe;
