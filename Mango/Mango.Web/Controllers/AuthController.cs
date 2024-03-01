@@ -57,12 +57,7 @@ namespace Mango.Web.Controllers
         [HttpGet]
         public IActionResult Register()
         {
-            var roleList = new List<SelectListItem>()
-            {
-                new SelectListItem { Text = SD.Role.Admin, Value = SD.Role.Admin },
-                new SelectListItem { Text = SD.Role.Customer, Value = SD.Role.Customer }
-            };
-            ViewBag.RoleList = roleList;
+            ViewBag.RoleList = GetRoleList();
 
             return View();
         }
@@ -94,12 +89,7 @@ namespace Mango.Web.Controllers
                 TempData["error"] = result.Message;
             }
 
-            var roleList = new List<SelectListItem>()
-            {
-                new SelectListItem { Text = SD.Role.Admin, Value = SD.Role.Admin },
-                new SelectListItem { Text = SD.Role.Customer, Value = SD.Role.Customer }
-            };
-            ViewBag.RoleList = roleList;
+            ViewBag.RoleList = GetRoleList();
 
             return View(obj);
         }
@@ -138,6 +128,17 @@ namespace Mango.Web.Controllers
             var principal = new ClaimsPrincipal(identity);
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+        }
+
+        private List<SelectListItem> GetRoleList()
+        {
+            var roleList = new List<SelectListItem>()
+            {
+                new SelectListItem { Text = SD.Role.Admin, Value = SD.Role.Admin },
+                new SelectListItem { Text = SD.Role.Customer, Value = SD.Role.Customer }
+            };
+
+            return roleList;
         }
     }
 }

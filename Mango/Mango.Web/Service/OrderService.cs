@@ -32,5 +32,15 @@ namespace Mango.Web.Service
                 Url = WebSD.APIBase.OrderAPI + "/api/order/CreateStripeSession"
             });
         }
+
+        public async Task<ResponseDto?> ValidateStripeSession(int orderHeaderId)
+        {
+            return await _baseService.SendAsync(new RequestDto()
+            {
+                ApiType = WebSD.ApiType.POST,
+                Data = orderHeaderId,
+                Url = WebSD.APIBase.OrderAPI + "/api/order/ValidateStripeSession"
+            });
+        }
     }
 }
