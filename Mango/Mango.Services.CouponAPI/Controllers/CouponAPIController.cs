@@ -91,7 +91,7 @@ namespace Mango.Services.CouponAPI.Controllers
                 {
                     AmountOff = (long)(couponDto.DiscountAmount * 100),
                     Name = couponDto.CouponCode,
-                    Currency = SD.Currency.USD,
+                    Currency = SD.Stripe.Currency.USD,
                     Id = couponDto.CouponCode
                 };
                 var service = new Stripe.CouponService();

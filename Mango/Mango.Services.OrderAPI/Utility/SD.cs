@@ -2,7 +2,7 @@
 {
     public class SD
     {
-        public class Status
+        public class OrderStatus
         {
             public const string Pending = "Pending";
             public const string Approved = "Approved";
@@ -18,16 +18,30 @@
             public const string Customer = "CUSTOMER";
         }
 
-        public class Currency
+        public class Stripe
         {
-            public const string USD = "usd";
-        }
+            public class Currency
+            {
+                public const string USD = "usd";
+            }
 
-        public class CheckoutSessionMode
-        {
-            public const string Payment = "payment";
-            public const string Setup = "setup";
-            public const string Subscription = "subscription";
+            public class CheckoutSessionMode
+            {
+                public const string Payment = "payment";
+                public const string Setup = "setup";
+                public const string Subscription = "subscription";
+            }
+
+            public class PaymentIntentStatus
+            {
+                public const string RequiresPaymentMethod = "requires_payment_method";
+                public const string RequiresConfirmation = "requires_confirmation";
+                public const string RequiresAction = "requires_action";
+                public const string Processing = "processing";
+                public const string RequiresCapture = "requires_capture";
+                public const string Canceled = "canceled";
+                public const string Succeeded = "succeeded";
+            }
         }
     }
 }

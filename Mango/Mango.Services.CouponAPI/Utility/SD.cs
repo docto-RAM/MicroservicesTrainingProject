@@ -2,9 +2,12 @@
 {
     public class SD
     {
-        public class Currency
+        public class Stripe
         {
-            public const string USD = "usd";
+            public class Currency
+            {
+                public const string USD = "usd";
+            }
         }
     }
 }
