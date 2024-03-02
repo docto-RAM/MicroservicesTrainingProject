@@ -1,6 +1,0 @@
-@Mango.Services.RewardsAPI_HostAddress = http://localhost:5285
-
-GET {{Mango.Services.RewardsAPI_HostAddress}}/
-Accept: application/json
-
-###
