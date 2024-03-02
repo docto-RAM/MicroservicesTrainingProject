@@ -43,7 +43,7 @@ namespace Mango.Services.EmailAPI.Services
             await EmailAndLog(message, _innerEmail);
         }
 
-        private async Task<bool> EmailAndLog(string message, string email)
+        private async Task EmailAndLog(string message, string email)
         {
             try
             {
@@ -57,12 +57,9 @@ namespace Mango.Services.EmailAPI.Services
                 await using var _db = new AppDbContext(_dbOptions);
                 await _db.EmailLoggers.AddAsync(emailLog);
                 await _db.SaveChangesAsync();
-
-                return true;
             }
-            catch (Exception)
+            catch
             {
-                return false;
             }
         }
     }
