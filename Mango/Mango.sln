@@ -27,7 +27,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mango.Services.EmailAPI", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mango.Services.OrderAPI", "Mango.Services.OrderAPI\Mango.Services.OrderAPI.csproj", "{FC7BB051-2111-4A25-854B-86F1009E9E86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mango.Utility", "Mango.Utility\Mango.Utility.csproj", "{C00C0CC4-3C23-4512-8F4B-C7C0A4054BC8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mango.Utility", "Mango.Utility\Mango.Utility.csproj", "{C00C0CC4-3C23-4512-8F4B-C7C0A4054BC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mango.Services.RewardsAPI", "Mango.Services.RewardsAPI\Mango.Services.RewardsAPI.csproj", "{C06829F7-6A79-4FD5-988B-3C270F2AFBE8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +73,10 @@ Global
 		{C00C0CC4-3C23-4512-8F4B-C7C0A4054BC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C00C0CC4-3C23-4512-8F4B-C7C0A4054BC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C00C0CC4-3C23-4512-8F4B-C7C0A4054BC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C06829F7-6A79-4FD5-988B-3C270F2AFBE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C06829F7-6A79-4FD5-988B-3C270F2AFBE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C06829F7-6A79-4FD5-988B-3C270F2AFBE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C06829F7-6A79-4FD5-988B-3C270F2AFBE8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,6 +91,7 @@ Global
 		{335A7A89-DF21-4499-9B8C-A0F5262A40EE} = {2BFFE011-EE05-4055-8E35-CE4642DAB4B4}
 		{FC7BB051-2111-4A25-854B-86F1009E9E86} = {2BFFE011-EE05-4055-8E35-CE4642DAB4B4}
 		{C00C0CC4-3C23-4512-8F4B-C7C0A4054BC8} = {4490FB47-C2D5-4AA3-BE83-4783D5333D06}
+		{C06829F7-6A79-4FD5-988B-3C270F2AFBE8} = {2BFFE011-EE05-4055-8E35-CE4642DAB4B4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5DE09E6C-8742-4036-85BB-AB43A3B33937}
