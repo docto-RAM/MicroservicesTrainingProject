@@ -6,6 +6,6 @@ namespace Mango.Services.EmailAPI.Services
     {
         Task EmailAndLogCartAsync(CartDto cartDto);
         Task EmailAndLogRegisterUserAsync(string email);
-        Task EmailAndLogPlacedOrderAsync(RewardDto rewardDto);
+        Task EmailAndLogCreatedOrderAsync(RewardDto rewardDto);
     }
 }

@@ -43,9 +43,9 @@ namespace Mango.Services.EmailAPI.Services
             await EmailAndLog(message, _innerEmail);
         }
 
-        public async Task EmailAndLogPlacedOrderAsync(RewardDto rewardDto)
+        public async Task EmailAndLogCreatedOrderAsync(RewardDto rewardDto)
         {
-            string message = "New Order Placed.<br/>Order Id : " + rewardDto.OrderId;
+            string message = "New order created.<br/>Order Id : " + rewardDto.OrderId;
 
             await EmailAndLog(message, _innerEmail);
         }
