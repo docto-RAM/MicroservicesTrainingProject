@@ -51,10 +51,10 @@ namespace Mango.Services.OrderAPI.Controllers
                 orderHeaderDto.Status = SD.OrderStatus.Pending;
                 orderHeaderDto.OrderDetails = _mapper.Map<IEnumerable<OrderDetailsDto>>(cartDto.CartDetails);
 
-                OrderHeader orderCreated = (await _db.OrderHeaders.AddAsync(_mapper.Map<OrderHeader>(orderHeaderDto))).Entity;
+                OrderHeader createdOrder = (await _db.OrderHeaders.AddAsync(_mapper.Map<OrderHeader>(orderHeaderDto))).Entity;
                 await _db.SaveChangesAsync();
 
-                orderHeaderDto.OrderHeaderId = orderCreated.OrderHeaderId;
+                orderHeaderDto.OrderHeaderId = createdOrder.OrderHeaderId;
                 _response.Result = orderHeaderDto;
             }
             catch (Exception ex)
@@ -157,7 +157,7 @@ namespace Mango.Services.OrderAPI.Controllers
                         RewardActivity = Convert.ToInt32(orderHeader.OrderTotal),
                         UserId = orderHeader.UserId
                     };
-                    await _messageBus.PublishMessage(rewardDto, _configuration.GetValue<string>("QueueAndTopicNames:OrderCreatedTopic"));
+                    await _messageBus.PublishMessage(rewardDto, _configuration.GetValue<string>("QueueAndTopicNames:CreatedOrderTopic"));
 
                     _response.Result = _mapper.Map<OrderHeaderDto>(orderHeader);
                 }

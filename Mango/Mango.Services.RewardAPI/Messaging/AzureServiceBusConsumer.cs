@@ -9,8 +9,8 @@ namespace Mango.Services.RewardAPI.Messaging
     public class AzureServiceBusConsumer : IAzureServiceBusConsumer
     {
         private readonly string serviceBusConnectionString;
-        private readonly string orderCreatedTopic;
-        private readonly string orderCreatedRewardSubscription;
+        private readonly string createdOrderTopic;
+        private readonly string createdOrderRewardSubscription;
 
         private readonly IConfiguration _configuration;
         private readonly RewardService _rewardService;
@@ -23,11 +23,11 @@ namespace Mango.Services.RewardAPI.Messaging
             _rewardService = rewardService;
 
             serviceBusConnectionString = _configuration.GetValue<string>("ServiceBusConnectionString");
-            orderCreatedTopic = _configuration.GetValue<string>("QueueAndTopicNames:OrderCreatedTopic");
-            orderCreatedRewardSubscription = _configuration.GetValue<string>("QueueAndTopicNames:OrderCreatedRewardSubscription");
+            createdOrderTopic = _configuration.GetValue<string>("QueueAndTopicNames:CreatedOrderTopic");
+            createdOrderRewardSubscription = _configuration.GetValue<string>("QueueAndTopicNames:CreatedOrderRewardSubscription");
 
             var client = new ServiceBusClient(serviceBusConnectionString);
-            _rewardProcessor = client.CreateProcessor(orderCreatedTopic, orderCreatedRewardSubscription);
+            _rewardProcessor = client.CreateProcessor(createdOrderTopic, createdOrderRewardSubscription);
         }
 
         public async Task Start()
