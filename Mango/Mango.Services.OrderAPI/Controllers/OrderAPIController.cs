@@ -7,6 +7,7 @@ using Mango.Services.OrderAPI.Service.IService;
 using Mango.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Stripe;
 using Stripe.Checkout;
 
@@ -38,6 +39,62 @@ namespace Mango.Services.OrderAPI.Controllers
             _mapper = mapper;
             _messageBus = messageBus;
             _configuration = configuration;
+        }
+
+        [Authorize]
+        [HttpGet("GetOrders")]
+        public ResponseDto? GetOrders(string? userId = "")
+        {
+            try
+            {
+                IEnumerable<OrderHeader> objList;
+
+                if (User.IsInRole(SD.Role.Admin))
+                {
+                    objList = _db.OrderHeaders
+                        .Include(x => x.OrderDetails)
+                        .OrderByDescending(x => x.OrderHeaderId)
+                        .ToList();
+                }
+                else
+                {
+                    objList = _db.OrderHeaders
+                        .Include(x => x.OrderDetails)
+                        .Where(x => x.UserId == userId)
+                        .OrderByDescending(x => x.OrderHeaderId)
+                        .ToList();
+                }
+
+                _response.Result = _mapper.Map<IEnumerable<OrderHeaderDto>>(objList);
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.Message = ex.Message;
+            }
+
+            return _response;
+        }
+
+        [Authorize]
+        [HttpGet("GetOrder/{id:int}")]
+        public ResponseDto? GetOrder(int id)
+        {
+            try
+            {
+                OrderHeader orderHeader = _db.OrderHeaders
+                    .Include(x => x.OrderDetails)
+                    .First(x => x.OrderHeaderId == id);
+
+                _response.Result = _mapper.Map<OrderHeaderDto>(orderHeader);
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.Message = ex.Message;
+            }
+
+            return _response;
         }
 
         [Authorize]
