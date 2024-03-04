@@ -49,7 +49,7 @@ namespace Mango.Services.OrderAPI.Controllers
             {
                 IEnumerable<OrderHeader> objList;
 
-                if (User.IsInRole(SD.Role.Admin))
+                if (User.IsInRole(SD.Role.Admin) && string.IsNullOrEmpty(userId))
                 {
                     objList = _db.OrderHeaders
                         .Include(x => x.OrderDetails)
@@ -77,14 +77,14 @@ namespace Mango.Services.OrderAPI.Controllers
         }
 
         [Authorize]
-        [HttpGet("GetOrder/{id:int}")]
-        public ResponseDto? GetOrder(int id)
+        [HttpGet("GetOrder/{orderId:int}")]
+        public ResponseDto? GetOrder(int orderId)
         {
             try
             {
                 OrderHeader orderHeader = _db.OrderHeaders
                     .Include(x => x.OrderDetails)
-                    .First(x => x.OrderHeaderId == id);
+                    .First(x => x.OrderHeaderId == orderId);
 
                 _response.Result = _mapper.Map<OrderHeaderDto>(orderHeader);
             }
