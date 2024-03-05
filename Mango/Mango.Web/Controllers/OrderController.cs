@@ -86,5 +86,50 @@ namespace Mango.Web.Controllers
 
             return View(orderHeaderDto);
         }
+
+        [HttpPost("UpdateOrderToReadyForPickup")]
+        public async Task<IActionResult> UpdateOrderToReadyForPickup(int orderId)
+        {
+            var response = await _orderService.UpdateOrderStatus(orderId, SD.OrderStatus.ReadyForPickup);
+
+            if (response != null && response.IsSuccess)
+            {
+                TempData["success"] = "Status updated successfully";
+
+                return RedirectToAction(nameof(GetOrderDetails), new { orderId });
+            }
+
+            return View();
+        }
+
+        [HttpPost("CompleteOrder")]
+        public async Task<IActionResult> CompleteOrder(int orderId)
+        {
+            var response = await _orderService.UpdateOrderStatus(orderId, SD.OrderStatus.Completed);
+
+            if (response != null && response.IsSuccess)
+            {
+                TempData["success"] = "Status updated successfully";
+
+                return RedirectToAction(nameof(GetOrderDetails), new { orderId });
+            }
+
+            return View();
+        }
+
+        [HttpPost("CancelOrder")]
+        public async Task<IActionResult> CancelOrder(int orderId)
+        {
+            var response = await _orderService.UpdateOrderStatus(orderId, SD.OrderStatus.Cancelled);
+
+            if (response != null && response.IsSuccess)
+            {
+                TempData["success"] = "Status updated successfully";
+
+                return RedirectToAction(nameof(GetOrderDetails), new { orderId });
+            }
+
+            return View();
+        }
     }
 }
