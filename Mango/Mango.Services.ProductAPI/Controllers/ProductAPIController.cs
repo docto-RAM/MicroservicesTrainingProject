@@ -64,34 +64,11 @@ namespace Mango.Services.ProductAPI.Controllers
             try
             {
                 Product product = _mapper.Map<Product>(productDto);
+
                 _db.Products.Add(product);
                 _db.SaveChanges();
 
-                if (productDto.Image != null)
-                {
-                    var fileName = product.ProductId + Path.GetExtension(productDto.Image.FileName);
-                    var filePath = @"wwwroot\img\" + fileName;
-                    var filePathDirectory = Path.Combine(Directory.GetCurrentDirectory(), filePath);
-
-                    FileInfo file = new FileInfo(filePathDirectory);
-                    if (file.Exists)
-                    {
-                        file.Delete();
-                    }
-
-                    using (var fileStream = new FileStream(filePathDirectory, FileMode.Create))
-                    {
-                        productDto.Image.CopyTo(fileStream);
-                    }
-
-                    var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.Value}{HttpContext.Request.PathBase.Value}";
-                    product.ImageUrl = baseUrl + "/img/" + fileName;
-                    product.ImageLocalPath = filePath;
-                }
-                else
-                {
-                    product.ImageUrl = "https://placehold.co/600x400";
-                }
+                product = SetImageForProduct(product, productDto.Image);
 
                 _db.Products.Update(product);
                 _db.SaveChanges();
@@ -109,15 +86,17 @@ namespace Mango.Services.ProductAPI.Controllers
 
         [HttpPut]
         [Authorize(Roles = "ADMIN")]
-        public ResponseDto Put([FromBody] ProductDto productDto)
+        public ResponseDto Put(ProductDto productDto)
         {
             try
             {
-                Product obj = _mapper.Map<Product>(productDto);
-                _db.Products.Update(obj);
+                Product product = _mapper.Map<Product>(productDto);
+                product = SetImageForProduct(product, productDto.Image);
+
+                _db.Products.Update(product);
                 _db.SaveChanges();
 
-                _response.Result = _mapper.Map<ProductDto>(obj);
+                _response.Result = _mapper.Map<ProductDto>(product);
             }
             catch (Exception ex)
             {
@@ -140,12 +119,8 @@ namespace Mango.Services.ProductAPI.Controllers
                 if (!string.IsNullOrEmpty(obj.ImageLocalPath))
                 {
                     var oldFilePathDirectory = Path.Combine(Directory.GetCurrentDirectory(), obj.ImageLocalPath);
-                    FileInfo file = new FileInfo(oldFilePathDirectory);
 
-                    if (file.Exists)
-                    {
-                        file.Delete();
-                    }
+                    DeleteFile(oldFilePathDirectory);
                 }
 
                 _db.Products.Remove(obj);
@@ -158,6 +133,52 @@ namespace Mango.Services.ProductAPI.Controllers
             }
 
             return _response;
+        }
+
+        private void DeleteFile(string fileName)
+        {
+            FileInfo file = new FileInfo(fileName);
+            if (file.Exists)
+            {
+                file.Delete();
+            }
+        }
+
+        private Product SetImageForProduct(Product product, IFormFile image)
+        {
+            if (image != null)
+            {
+                if (!string.IsNullOrEmpty(product.ImageLocalPath))
+                {
+                    var oldFilePathDirectory = Path.Combine(Directory.GetCurrentDirectory(), product.ImageLocalPath);
+
+                    DeleteFile(oldFilePathDirectory);
+
+                    product.ImageUrl = null;
+                    product.ImageLocalPath = null;
+                }
+
+                var fileName = product.ProductId + Path.GetExtension(image.FileName);
+                var filePath = @"wwwroot\img\" + fileName;
+                var filePathDirectory = Path.Combine(Directory.GetCurrentDirectory(), filePath);
+
+                DeleteFile(filePathDirectory);
+
+                using (var fileStream = new FileStream(filePathDirectory, FileMode.Create))
+                {
+                    image.CopyTo(fileStream);
+                }
+
+                var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.Value}{HttpContext.Request.PathBase.Value}";
+                product.ImageUrl = baseUrl + "/img/" + fileName;
+                product.ImageLocalPath = filePath;
+            }
+            else
+            {
+                product.ImageUrl = "https://placehold.co/600x400";
+            }
+
+            return product;
         }
     }
 }
