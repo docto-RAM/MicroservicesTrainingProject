@@ -10,7 +10,6 @@ builder.Services.AddOcelot(builder.Configuration);
 
 var app = builder.Build();
 
-app.MapGet("/", () => "");
 app.UseOcelot().GetAwaiter().GetResult();
 
 app.Run();
